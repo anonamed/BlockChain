@@ -1,28 +1,29 @@
-package noobchain;
 import java.util.ArrayList;
-import com.google.gson.GsonBuilder;
+
 
 public class TestChain {
 
 	public static ArrayList<Block> blockchain = new ArrayList<Block>(); 
 	public static int difficulty = 5;
+	public static int timedif;
+
 
 	public static void main(String[] args) {		
-			
+		
 		System.out.println("Trying to Mine block 1... ");
 		addBlock(new Block("First block", "0"));
-		
+
 		System.out.println("Trying to Mine block 2... ");
 		addBlock(new Block("Second block",blockchain.get(blockchain.size()-1).hash));
 		
 		System.out.println("Trying to Mine block 3... ");
-		addBlock(new Block("Third block",blockchain.get(blockchain.size()-1).hash));	
+		addBlock(new Block("Third block",blockchain.get(blockchain.size()-1).hash));
+
+		System.out.println("Trying to Mine block 4... ");
+		addBlock(new Block("Four block",blockchain.get(blockchain.size()-1).hash));
 		
 		System.out.println("\nBlockchain is Valid: " + isChainValid());
 		
-		String blockchainJson = StringUtil.getJson(blockchain);
-		System.out.println("\nThe block chain: ");
-		System.out.println(blockchainJson);
 	}
 
 	public static Boolean isChainValid() {
@@ -54,7 +55,20 @@ public class TestChain {
 	}
 	
 	public static void addBlock(Block newBlock) {
+		long debut = System.currentTimeMillis();
+
 		newBlock.mineBlock(difficulty);
 		blockchain.add(newBlock);
+
+		timedif = Math.toIntExact(System.currentTimeMillis()-debut);
+		System.out.println("Temps : "+timedif+" ms");
+
+		if(timedif > 5000){
+			difficulty = 5;
+		} else if(timedif < 5000){
+			difficulty = 6;
+		} else {
+			difficulty = 5;
+		}
 	}
 }

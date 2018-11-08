@@ -1,7 +1,5 @@
-package noobchain;
 import java.security.MessageDigest;
 
-import com.google.gson.GsonBuilder;
 
 public class StringUtil {
 	
@@ -24,13 +22,10 @@ public class StringUtil {
 			throw new RuntimeException(e);
 		}
 	}
-	
-	public static String getJson(Object o) {
-		return new GsonBuilder().setPrettyPrinting().create().toJson(o);
-	}
-	
+		
 	public static String getDificultyString(int difficulty) {
-		return new String(new char[difficulty]).replace('\0', '0');
+		String dif = new String(new char[difficulty]).replace('\0', '0');
+		return dif;
 	}
 	
 	

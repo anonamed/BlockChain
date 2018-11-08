@@ -1,4 +1,3 @@
-package noobchain;
 import java.util.Date;
 
 
@@ -16,7 +15,7 @@ public class Block {
 		this.previousHash = previousHash;
 		this.timeStamp = new Date().getTime();
 		
-		// this.hash = calculateHash(); 
+		this.hash = calculateHash(); 
 	}
 
 	public String calculateHash() {
@@ -30,7 +29,7 @@ public class Block {
 	}
 
 	public void mineBlock(int difficulty) {
-		String target = StringUtil.getDificultyString(difficulty); //String difficulty commence à 0
+		String target = StringUtil.getDificultyString(difficulty); 
 		while(!hash.substring( 0, difficulty).equals(target)) {
 			nonce ++;
 			hash = calculateHash();
